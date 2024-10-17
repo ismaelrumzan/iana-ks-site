@@ -1,0 +1,20 @@
+hero:
+  title: Welcome to IANA Financial
+  image: /images/home/hero/image.png
+  subtitle: Towards God-centred community financial services, for the common good.
+  highlights:
+    - image: /images/home/hero/highlights/0/image.jpg
+      title: Apply for a loan
+    - image: /images/home/hero/highlights/1/image.jpg
+      title: Become a supporter
+sections:
+  - discriminant: card
+    value:
+      title: Our Process
+      subtitle: Why trust us with your financial needs?
+      background: '#275C26'
+      cards:
+        - image: /images/home/sections/0/value/cards/0/image.jpg
+          title: Resources
+        - image: /images/home/sections/0/value/cards/1/image.jpg
+          title: Advisors & Management

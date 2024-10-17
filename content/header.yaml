@@ -1,0 +1,8 @@
+logo:
+  alt: IANA Financial
+  url: /images/logo/url.png
+pages: []
+cta:
+  text: Apply for a Loan
+  icon: FileInput
+  link: /apply
