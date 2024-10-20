@@ -1,5 +1,5 @@
 import { Hero } from "@/components/home/hero";
-import { Highlights } from "./home/highlights";
+import { Highlights } from "@/components/home/highlights";
 import { reader } from "@/app/reader";
 
 export default async function Homepage() {
@@ -7,7 +7,16 @@ export default async function Homepage() {
   return (
     <>
       <Hero data={homeContent} />
-      <Highlights />
+      {homeContent?.sections.map((section, i) => {
+        const sectionType = section.discriminant;
+        return (
+          <>
+            {sectionType === "card" && (
+              <Highlights data={homeContent} index={i} key={i} />
+            )}
+          </>
+        );
+      })}
     </>
   );
 }

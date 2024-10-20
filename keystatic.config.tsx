@@ -1,5 +1,6 @@
 import { config, collection, fields, singleton } from "@keystatic/core";
-import { ColorPicker } from "keystatic-components";
+import { CTAButton } from "@/components/keystatic/cta-button";
+import { Alert } from "@/components/keystatic/alert";
 
 export const markdocConfig = fields.markdoc.createMarkdocConfig({});
 
@@ -110,8 +111,12 @@ export default config({
                   publicPath: "/images/home",
                 }),
                 title: fields.text({ label: "Highlight title" }),
-                content: fields.markdoc({
+                content: fields.mdx({
                   label: "Highlight Content",
+                  components: {
+                    CTAButton: CTAButton,
+                    Alert: Alert,
+                  },
                   options: {
                     image: {
                       directory: "public/images/home",
@@ -153,8 +158,12 @@ export default config({
                       publicPath: "/images/home",
                     }),
                     title: fields.text({ label: "Card title" }),
-                    content: fields.markdoc({
-                      label: "Card Content",
+                    content: fields.mdx({
+                      label: "Highlight Content",
+                      components: {
+                        CTAButton: CTAButton,
+                        Alert: Alert,
+                      },
                       options: {
                         image: {
                           directory: "public/images/home",

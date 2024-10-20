@@ -1,13 +1,21 @@
+import React from "react";
 import { Card, List, Button } from "flowbite-react";
+import { CustomMDX } from "../mdx-remote";
+import Markdoc from "@markdoc/markdoc";
 import { Alert } from "flowbite-react";
 import { ShieldCheck, FileInput, Info } from "lucide-react";
 import { Entry } from "@keystatic/core/reader";
 import keystaticConfig from "@/keystatic.config";
+import { markdocConfig } from "@/keystatic.config";
 import Image from "next/image";
 
 type HomeProps = Entry<(typeof keystaticConfig)["singletons"]["home"]> | null;
 
-export function Hero({ data }: { data: HomeProps }): JSX.Element {
+export async function Hero({
+  data,
+}: {
+  data: HomeProps;
+}): Promise<JSX.Element> {
   return (
     <>
       <section>
@@ -36,31 +44,23 @@ export function Hero({ data }: { data: HomeProps }): JSX.Element {
       {data?.hero.highlights && data?.hero.highlights.length > 0 ? (
         <section className="mb-4">
           <div className="flex flex-col p-3 sm:p-0 sm:flex-row justify-center gap-4">
-            {data?.hero.highlights.map((highlight) => (
-              <Card
-                href="/applications"
-                className="max-w-sm"
-                imgSrc={highlight.image as string}
-                horizontal>
-                <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                  {highlight.title as string}
-                </h5>
-                <List>
-                  <List.Item icon={ShieldCheck}>
-                    Information before you apply
-                  </List.Item>
-                  <List.Item icon={ShieldCheck}>Process of selection</List.Item>
-                  <List.Item icon={ShieldCheck}>
-                    Submit an application
-                  </List.Item>
-                  <List.Item icon={ShieldCheck}>Review our FAQs</List.Item>
-                </List>
-                <Button className="uppercase bg-[#275C26] hover:bg-[#559553]">
-                  Apply
-                  <FileInput className="ml-2 h-5 w-5" />
-                </Button>
-              </Card>
-            ))}
+            {data?.hero.highlights.map(async (highlight) => {
+              const content = await highlight.content();
+              return (
+                <Card
+                  key={highlight.title}
+                  className="max-w-sm"
+                  imgSrc={highlight.image as string}
+                  horizontal>
+                  <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    {highlight.title as string}
+                  </h5>
+                  <div className="prose">
+                    <CustomMDX source={content} />
+                  </div>
+                </Card>
+              );
+            })}
           </div>
         </section>
       ) : null}
