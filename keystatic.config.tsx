@@ -1,12 +1,30 @@
-import { config, collection, fields, singleton } from "@keystatic/core";
+import {
+  config,
+  collection,
+  fields,
+  singleton,
+  LocalConfig,
+  CloudConfig,
+} from "@keystatic/core";
 import { CTAButton } from "@/components/keystatic/cta-button";
 import { Alert } from "@/components/keystatic/alert";
 
 export const markdocConfig = fields.markdoc.createMarkdocConfig({});
 
+const isProd = process.env.NODE_ENV === "production";
+
+const localMode: LocalConfig["storage"] = {
+  kind: "local",
+};
+
+const remoteMode: CloudConfig["storage"] = {
+  kind: "cloud",
+};
+
 export default config({
-  storage: {
-    kind: "local",
+  storage: isProd ? remoteMode : localMode,
+  cloud: {
+    project: "iana-financial/iana-site",
   },
   collections: {
     posts: collection({
